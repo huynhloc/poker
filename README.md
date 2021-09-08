@@ -1,4 +1,5 @@
 ### Problem 1:
+
 ```
 SELECT t.id, t.friendly_name, t.scientific_name, t.owner_name, count(likes_table.user_id) as num_of_likes
 FROM (SELECT tree_table.id as id, tree_table.friendly_name as friendly_name, tree_table.scientific_name as scientific_name, user_table.name as owner_name
@@ -11,11 +12,11 @@ GROUP BY t.id;
 ### Problem 2:
 
 ```
-cd pocker
+cd poker
 yarn
 yarn start
 ```
 
- Nguồn tham khảo:
+Reference source:
 
- https://dev.to/miketalbot/real-world-javascript-map-reduce-solving-the-poker-hand-problem-3eie
+https://dev.to/miketalbot/real-world-javascript-map-reduce-solving-the-poker-hand-problem-3eie
