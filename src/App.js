@@ -1,19 +1,12 @@
 import React, { useState, useMemo } from "react";
-import { createDeck, shuffle, getTop5Cards, getRank } from "./utils";
+import {
+  createDeck,
+  shuffle,
+  getTopCards,
+  getRank,
+  NUM_OF_CARD_PER_HAND,
+} from "./utils";
 import "./App.css";
-
-const RANK = {
-  1: "royal flush",
-  2: "straight flush",
-  3: "four of a kind",
-  4: "full house",
-  5: "flush",
-  6: "straight",
-  7: "three of a kind",
-  8: "two pair",
-  9: "one pair",
-  10: "high card",
-};
 
 function Card({ card }) {
   return (
@@ -28,7 +21,10 @@ function App() {
   const [deck, setDeck] = useState(createDeck());
   const [top5Cards, setTop5Cards] = useState([]);
   const rank = useMemo(
-    () => (top5Cards.length === 5 ? RANK[getRank(top5Cards).rank] : ""),
+    () =>
+      top5Cards.length === NUM_OF_CARD_PER_HAND
+        ? getRank(top5Cards).rank.title
+        : "",
     [top5Cards]
   );
 
@@ -37,18 +33,13 @@ function App() {
     setTop5Cards([]);
   };
   const shuffleDeck = () => setDeck(shuffle(deck));
-  const drawTop5Cards = () => setTop5Cards(getTop5Cards(deck));
+  const drawTopCards = () => setTop5Cards(getTopCards(deck));
 
   return (
     <div className="App">
-      <div className="cards">
-        {deck.map((card, index) => (
-          <Card card={card} key={`card_${index}`} />
-        ))}
-      </div>
       <div className="result">
         <div className="actions">
-          <button className="button" onClick={drawTop5Cards}>
+          <button className="button" onClick={drawTopCards}>
             Draw 5 Cards
           </button>
           <button className="button" onClick={shuffleDeck}>
@@ -64,6 +55,11 @@ function App() {
           ))}
         </div>
         {rank && <div className="rank">{rank}</div>}
+      </div>
+      <div className="cards">
+        {deck.map((card, index) => (
+          <Card card={card} key={`card_${index}`} />
+        ))}
       </div>
     </div>
   );
